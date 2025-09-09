@@ -742,3 +742,113 @@ function keyword ki jagah => ka use hota hai.
 Chhoti lines mein function likhne ke liye best hai.
 
 Apna this nahi banata (outer this use karta hai).
+==============================================================
+: What is Scope?
+
+👉 Scope = Kahan tak ek variable accessible hai (kis area me use ho sakta hai).
+JavaScript me alag-alag tarah ke scopes hote hain:
+
+Global Scope
+
+Function Scope
+
+Block Scope
+
+Lexical Scope
+
+🔹 Slide 2: Global Scope
+
+Jo variable function ya block ke bahar banaya jata hai → wo global scope hota hai.
+
+Isko code ke har jagah access kar sakte hain.
+
+Example:
+var globalVar = "I am Global";
+
+function show() {
+  console.log(globalVar); // Accessible here
+}
+
+console.log(globalVar); // Accessible here also
+
+
+✅ Global scope ka variable poore program me available hota hai.
+
+🔹 Slide 3: Function Scope
+
+Jo variable function ke andar banaya jata hai, wo sirf usi function ke andar accessible hota hai.
+
+Bahar use nahi kar sakte.
+
+Example:
+function test() {
+  var localVar = "I am inside function";
+  console.log(localVar); // ✅ Works
+}
+
+console.log(localVar); // ❌ Error (not defined)
+
+
+✅ Function ke andar banaye gaye variables bahar se hidden hote hain.
+
+🔹 Slide 4: Block Scope
+
+Block = { ... } (jaise if, loop, curly braces).
+
+let aur const → block scope follow karte hain.
+
+var block scope follow nahi karta (sirf function scope follow karta hai).
+
+Example:
+if (true) {
+  let a = 10;
+  const b = 20;
+  var c = 30;
+}
+
+console.log(c); // ✅ Works (var ignores block)
+console.log(a); // ❌ Error (block scoped)
+console.log(b); // ❌ Error (block scoped)
+
+
+✅ Block scope ka matlab hai ke variable sirf usi block { } me accessible hai.
+
+🔹 Slide 5: Lexical Scope
+
+Lexical = position in code.
+
+Jo inner function hota hai, wo apne outer function ke variables ko access kar sakta hai.
+
+Isko scope chain bhi kehte hain.
+
+Example:
+function outer() {
+  let outerVar = "I am outer";
+
+  function inner() {
+    console.log(outerVar); // ✅ Accessible due to lexical scope
+  }
+
+  inner();
+}
+
+outer();
+
+
+✅ Inner function apne parent function ke variables ko access kar sakta hai.
+
+🔹 Slide 6: Comparison
+Scope Type	Accessible Where?	Example Variable Types
+Global Scope	Whole program	var/let/const
+Function Scope	Inside the function only	var/let/const inside fn
+Block Scope	Inside {} only (if, loop, etc.)	let, const
+Lexical Scope	Inner functions can access outer vars	functions
+🔹 Slide 7: Quick Recap
+
+Global → har jagah accessible
+
+Function → sirf us function ke andar
+
+Block → sirf curly braces { } ke andar (let/const)
+
+Lexical → inner function outer ke variables access kar sakta hai
