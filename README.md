@@ -852,3 +852,376 @@ Function → sirf us function ke andar
 Block → sirf curly braces { } ke andar (let/const)
 
 Lexical → inner function outer ke variables access kar sakta hai
+
+
+
+
+
+
+
+
+
+# 📘 JavaScript Notes (Urdu + English)
+
+---
+
+## Section 1: Keywords & Variables  
+
+### Keywords  
+- **Urdu:** JS mein aise words jinse kuchh ho sakta hai, wo saare words **keywords** hote hain.  
+- **English:** Reserved words in JavaScript that have a predefined meaning are called **keywords**.  
+
+---
+
+### var, let, const  
+
+#### Declaration and Initialization  
+```js
+var a;        // declare only
+var a = 13;   // declare + initialize
+var a = 12;   // redeclare (allowed)
+```
+
+- **Urdu:** `var` global (window) object mein add hota hai aur function scope rakhta hai. Redeclaration allowed hai.  
+- **English:** `var` is function-scoped, attaches to the global `window` object, and can be redeclared.  
+
+```js
+let a = 12;
+let a = 13; // ❌ SyntaxError
+a = 13;     // ✅ reassignment allowed
+```
+
+```js
+const pi = 3.14; // cannot be reassigned or redeclared
+```
+
+---
+
+#### Reassignment & Redeclaration  
+
+- **var:**  
+  ```js
+  var a = 14;
+  a = 31;     // reassignment allowed
+  var a = 43; // redeclaration allowed
+  ```
+
+- **let:**  
+  ```js
+  let a = 14;
+  a = 31;     // reassignment allowed
+  let a = 43; // ❌ redeclaration not allowed
+  ```
+
+- **const:**  
+  ```js
+  const pi = 3.14;
+  pi = 22;    // ❌ reassignment not allowed
+  const pi = 11; // ❌ redeclaration not allowed
+  ```
+
+---
+
+#### Temporal Dead Zone (TDZ)  
+
+- **Urdu:** TDZ wo area hai jahan variable declare hota hai lekin initialize hone se pehle usko access nahi kar sakte.  
+- **English:** TDZ is the time between declaration and initialization where a variable exists but cannot be accessed.  
+
+```js
+console.log(a); // ❌ ReferenceError
+let a = 34;
+```
+
+- **var →** hoist hota hai with default `undefined`.  
+- **let / const →** hoist hote hain lekin access karne par `ReferenceError` dete hain.  
+
+---
+
+## Section 2: Scope  
+
+### Global Scope  
+- **Urdu:** Global scope ke variable ko poore code me kahin bhi access kar sakte ho.  
+- **English:** Global scope means the variable can be accessed anywhere in the code.  
+
+```js
+var a = 12;
+console.log(a); // accessible everywhere
+```
+
+---
+
+### Function Scope  
+- **Urdu:** Function ke andar banaye gaye variables sirf function ke andar accessible hote hain, bahar nahi.  
+- **English:** Function-scoped variables are only accessible inside the function.  
+
+```js
+function abc() {
+  let c = 13;
+  console.log(c); // ✅ accessible inside
+}
+abc();
+console.log(c); // ❌ not accessible
+```
+
+---
+
+### Block Scope  
+- **Urdu:** Block (`{}`) ke andar banaye gaye variables sirf us block me hi accessible hote hain.  
+- **English:** Block-scoped variables (`let`, `const`) are only accessible inside the block.  
+
+```js
+{
+  let a = 14;
+  console.log(a); // ✅ inside block
+}
+console.log(a);   // ❌ outside block
+```
+
+---
+
+## Section 3: Hoisting  
+
+- **Urdu:** JS me variable declare aur initialize alag treat hota hai. Declaration upar chale jata hai, initialization neeche rehta hai.  
+- **English:** Hoisting moves declarations to the top but leaves initialization in place.  
+
+```js
+console.log(x); // undefined
+var x = 10;
+```
+
+```js
+console.log(y); // ❌ ReferenceError
+let y = 5;
+```
+
+---
+
+## Section 4: Data Types  
+
+### Primitive Data Types  
+- **Urdu:** Primitive values copy karne par ek nayi copy milti hai.  
+- **English:** When copied, primitive values create a new independent copy.  
+
+Examples:  
+- string, number, boolean, null, undefined, symbol, bigint  
+
+```js
+let a = 12;
+let b = a;
+a = a + 3;
+console.log(a); // 15
+console.log(b); // 12
+```
+
+#### null  
+- **Urdu:** Jan bujh kar koi value nahi dena.  
+- **English:** Represents intentional absence of value.  
+
+#### undefined  
+- **Urdu:** Variable declare kiya lekin value assign nahi ki.  
+- **English:** Declared but not assigned any value.  
+
+#### symbol  
+- **Urdu:** Unique aur immutable value jo mostly libraries me conflicts avoid karne ke liye use hoti hai.  
+- **English:** Unique, immutable value often used to avoid property name conflicts.  
+
+```js
+let u1 = Symbol("id");
+let obj = {
+  [u1]: "001",
+  name: "Hasnain"
+};
+```
+
+---
+
+### Non-Primitive (Reference Types)  
+- **Urdu:** Inko copy karne par asli copy nahi milti, reference (link) milta hai.  
+- **English:** Copying reference types gives a reference, not a separate copy.  
+
+Examples: array, object, function  
+
+```js
+let a = [1,2,3];
+let b = a;
+b.pop();
+console.log(a); // [1,2]
+```
+
+```js
+let obj1 = { name: "Hasnain" };
+let obj2 = obj1;
+obj2.name = "Ali";
+console.log(obj1.name); // Ali
+```
+
+---
+
+### Dynamic Typing  
+- **Urdu:** JS static typed language nahi hai. Aap ek hi variable ki type change kar sakte ho.  
+- **English:** JavaScript is dynamically typed, meaning variables can change types.  
+
+```js
+let a = 12;
+a = true;
+a = "Ali";
+a = null;
+a = undefined;
+```
+
+---
+
+### Type Conversion (== vs ===)  
+
+- **Type coercion:** JS automatically converts types when needed.  
+
+```js
+"5" + 1   // "51"
+"5" - 1   // 4
+```
+
+- **==** (loose equality) → converts types before comparing.  
+- **===** (strict equality) → compares value + type.  
+
+```js
+12 == "12"   // true
+12 === "12"  // false
+```
+
+---
+
+### Truthy & Falsy Values  
+
+- **Falsy Values:** `0, false, "", null, undefined, NaN, document.all`  
+- **Truthy Values:** `{}`, `[]`, non-zero numbers, non-empty strings  
+
+---
+
+## Section 5: Operators  
+
+### Arithmetic Operators  
+```js
++ , - , * , / , % , **
+```
+
+Examples:  
+```js
+1 + 3 = 4
+"hasni" + "ain" = "hasnian" // concatenation
+```
+
+---
+
+### Comparison Operators  
+```js
+== , === , != , !== , > , < , >= , <=
+```
+
+```js
+12 == "12"   // true
+12 === "12"  // false
+12 != 13     // true
+```
+
+---
+
+### Assignment Operators  
+```js
+let a = 12;
+a += 3;  // 15
+a -= 11; // 4
+a *= 12; // 144
+a /= 2;  // 72
+a %= 3;  // 0
+```
+
+---
+
+### Logical Operators  
+```js
+&&   // AND
+||   // OR
+!    // NOT
+```
+
+---
+
+### Unary Operators  
+```js
++, -, !, typeof, ++, --
+```
+
+- **Pre-increment:** `++a` (increase first, then use)  
+- **Post-increment:** `a++` (use first, then increase)  
+
+```js
+let a = 2;
+console.log(++a); // 3
+
+let b = 2;
+console.log(b++); // 2
+console.log(b);   // 3
+```
+
+---
+
+### Ternary Operator (?:)  
+
+Syntax:  
+```js
+condition ? valueIfTrue : valueIfFalse
+```
+
+Examples:  
+```js
+let score = 75;
+let grade = score >= 90 ? "A" : score >= 75 ? "B" : score >= 60 ? "C" : "Fail";
+console.log(grade); // "B"
+```
+
+```js
+let point = 120;
+let status = point > 100 ? "Gold" : point > 50 ? "Silver" : "Bronze";
+console.log(status); // "Gold"
+```
+
+```js
+let login = true;
+let hasToken = false;
+let access = login && hasToken ? "Allow" : "Not Allow";
+console.log(access); // "Not Allow"
+```
+
+---
+
+## Section 6: typeof & instanceof  
+
+### typeof  
+- **Urdu:** Ye operator variable ki type batata hai.  
+- **English:** Returns the data type of a variable.  
+
+```js
+console.log(typeof 123);    // number
+console.log(typeof "abc");  // string
+console.log(typeof true);   // boolean
+console.log(typeof []);     // object
+console.log(typeof {});     // object
+```
+
+---
+
+### instanceof  
+- **Urdu:** Ye check karta hai ki koi object kisi constructor/class ka instance hai ya nahi.  
+- **English:** Tests whether an object is an instance of a particular constructor.  
+
+```js
+let arr = [];
+console.log(arr instanceof Array);   // true
+console.log(arr instanceof Object);  // true
+```
+
+```js
+let a = 1;
+console.log(a instanceof Number); // false (primitive is not object)
+```
+
